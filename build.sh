@@ -7,7 +7,7 @@ set -euo pipefail
 
 VERSIONS_DIR="versions"
 IMAGE="alexycodes/resticprofile"
-LATEST="0.31.0"
+LATEST="0.32.0"
 
 if [[ ! -d "$VERSIONS_DIR" ]]; then
   echo "Directory not found: $VERSIONS_DIR" >&2
