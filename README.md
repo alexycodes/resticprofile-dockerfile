@@ -1,6 +1,8 @@
 # alexycodes/resticprofile
 
-A [resticprofile](https://github.com/creativeprojects/resticprofile) image with its entrypoint and command overridden to execute `crond` on start. Containers therefore run indefinitely and can be used to schedule tasks.
+A [resticprofile](https://github.com/creativeprojects/resticprofile) image built for long-lived containers with database and backup utilities.
+
+It overrides the official image's entrypoint and command to execute `crond` on start, so containers run indefinitely and can be used to schedule tasks.
 
 ## Scheduling tasks
 
