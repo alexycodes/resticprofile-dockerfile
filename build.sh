@@ -40,6 +40,7 @@ for dir in $(printf '%s\n' "$VERSIONS_DIR"/*/ | sort -V); do
     echo -e "\nBuilding $IMAGE:$version (latest) for platform(s) $platform\n"
 
     docker buildx build \
+      --no-cache \
       --platform "$platform" \
       -t "$IMAGE:$version" \
       -t "$IMAGE:latest" \
@@ -50,6 +51,7 @@ for dir in $(printf '%s\n' "$VERSIONS_DIR"/*/ | sort -V); do
     echo -e "\nBuilding $IMAGE:$version for platform(s) $platform\n"
 
     docker buildx build \
+      --no-cache \
       --platform "$platform" \
       -t "$IMAGE:$version" \
       -f "$dockerfile" \
