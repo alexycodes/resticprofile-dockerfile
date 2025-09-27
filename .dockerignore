@@ -1,5 +1,9 @@
+.git
+.st*
+.vscode
 *.env
 *.log
 *.md
-.git
-.vscode
+build.sh
+LICENSE
+platform
