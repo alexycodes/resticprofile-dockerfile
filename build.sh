@@ -5,21 +5,21 @@
 
 set -euo pipefail
 
-VERSIONS_DIR="versions"
+TAGS_DIR="tags"
 IMAGE="alexycodes/resticprofile"
 LATEST="0.32.0"
 
-if [[ ! -d "$VERSIONS_DIR" ]]; then
-  echo "Directory not found: $VERSIONS_DIR" >&2
+if [[ ! -d "$TAGS_DIR" ]]; then
+  echo "Directory not found: $TAGS_DIR" >&2
   exit 1
 fi
 
 start=$(date +%s)
 
-for dir in $(printf '%s\n' "$VERSIONS_DIR"/*/ | sort -V); do
+for dir in $(printf '%s\n' "$TAGS_DIR"/*/ | sort -V); do
   [[ -d "$dir" ]] || continue
 
-  version="$(basename "$dir")"
+  tag="$(basename "$dir")"
   dockerfile="${dir}Dockerfile"
   platform_file="${dir}platform"
 
@@ -35,24 +35,24 @@ for dir in $(printf '%s\n' "$VERSIONS_DIR"/*/ | sort -V); do
 
   platform=$(<"$platform_file")
 
-  if [[ "${version}" == "${LATEST}" ]]; then
-    echo -e "\nBuilding $IMAGE:$version (latest) for platform(s) $platform\n"
+  if [[ "${tag}" == "${LATEST}" ]]; then
+    echo -e "\nBuilding $IMAGE:$tag (latest) for platform(s) $platform\n"
 
     docker buildx build \
       --no-cache \
       --platform "$platform" \
-      -t "$IMAGE:$version" \
+      -t "$IMAGE:$tag" \
       -t "$IMAGE:latest" \
       -f "$dockerfile" \
       --push \
       .
   else
-    echo -e "\nBuilding $IMAGE:$version for platform(s) $platform\n"
+    echo -e "\nBuilding $IMAGE:$tag for platform(s) $platform\n"
 
     docker buildx build \
       --no-cache \
       --platform "$platform" \
-      -t "$IMAGE:$version" \
+      -t "$IMAGE:$tag" \
       -f "$dockerfile" \
       --push \
       .
@@ -63,4 +63,4 @@ end=$(date +%s)
 runtime=$(( end - start ))
 
 printf 'Finished in %02d:%02d:%02d\n' \
-       $(( runtime/3600 )) $(( (runtime/60)%60 )) $(( runtime%60 ))
+  $(( runtime/3600 )) $(( (runtime/60)%60 )) $(( runtime%60 ))

@@ -20,7 +20,7 @@ RUN apk add --update --no-cache \
         sshfs                   \
         tzdata                  \
         xxhash
-
+        
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
