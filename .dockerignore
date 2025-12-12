@@ -1,9 +1,2 @@
-.git
-.st*
-.vscode
-*.env
-*.log
-*.md
-build.sh
-LICENSE
-platform
+**
+!entrypoint.sh
