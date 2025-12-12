@@ -17,7 +17,6 @@ fi
 start=$(date +%s)
 
 for dir in $(printf '%s\n' "$VERSIONS_DIR"/*/ | sort -V); do
-  # Skip if no sub-directories exist
   [[ -d "$dir" ]] || continue
 
   version="$(basename "$dir")"
