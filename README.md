@@ -9,3 +9,27 @@ It overrides the official image's entrypoint and command to execute `crond` on s
 ## Scheduling tasks
 
 A [crontab](https://linuxhandbook.com/crontab/) configuration file can be mounted inside the container at `/crontab` to automatically schedule tasks.
+
+## Installed packages
+
+Images have the following packages installed on top of the official resticprofile images:
+
+- `acl`
+- `bash`
+- `btrfs-progs`
+- `ca-certificates`
+- `curl`
+- `findmnt`
+- `fuse`
+- `libxxhash`
+- `logrotate`
+- `lz4-libs`
+- `mariadb-client`
+- `mariadb-connector-c`
+- `mongodb-tools`
+- `openssl`
+- `postgresql-client`
+- `sqlite`
+- `sshfs`
+- `tzdata`
+- `xxhash`
