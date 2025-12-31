@@ -29,6 +29,7 @@ Images have the following packages installed on top of the official resticprofil
 - `mongodb-tools`
 - `openssl`
 - `postgresql-client`
+- `rclone`
 - `sqlite`
 - `sshfs`
 - `tzdata`
