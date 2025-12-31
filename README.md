@@ -1,6 +1,6 @@
 # ilium007/resticprofile
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/ilium007/resticprofile?label=Docker%20Pulls&logo=docker)](https://hub.docker.com/r/ilium007/resticprofile)
+![Static Badge](https://img.shields.io/badge/github-repo-blue?logo=github&label=github&link=ghcr.io%2Filium007%2Fresticprofile-dockerfile)
 
 A [resticprofile](https://github.com/creativeprojects/resticprofile) image built for long-lived containers with database and backup utilities. Forked from the excellent work at [alexycodes/resticprofile-dockerfile](https://github.com/alexycodes/resticprofile-dockerfile).
 
