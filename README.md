@@ -1,6 +1,6 @@
 # alexycodes/resticprofile
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/alexycodes/resticprofile?label=Docker%20Pulls&logo=docker)](https://hub.docker.com/r/alexycodes/resticprofile)
+[![Docker Pulls](https://img.shields.io/docker/pulls/ilium007/resticprofile?label=Docker%20Pulls&logo=docker)](https://hub.docker.com/r/ilium007/resticprofile)
 
 A [resticprofile](https://github.com/creativeprojects/resticprofile) image built for long-lived containers with database and backup utilities.
 
