@@ -6,16 +6,13 @@ name: Docker
 # documentation.
 
 on:
-  #schedule:
-  #  - cron: '44 22 * * *'
+  workflow_dispatch:  # allows to run the workflow manually from the Actions tab
   push:
     # branches: [ "main" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
     paths:
       - build/Dockerfile
-  #pull_request:
-  #  branches: [ "main" ]
 
 env:
   # Use docker.io for Docker Hub if empty
