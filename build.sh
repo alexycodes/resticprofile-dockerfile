@@ -7,7 +7,7 @@ set -euo pipefail
 
 TAGS_DIR="tags"
 IMAGE="alexycodes/resticprofile"
-LATEST="0.32.0"
+LATEST="0.32.1"
 
 if [[ ! -d "$TAGS_DIR" ]]; then
   echo "Directory not found: $TAGS_DIR" >&2
