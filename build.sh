@@ -8,6 +8,23 @@ set -euo pipefail
 TAGS_DIR="tags"
 IMAGE="alexycodes/resticprofile"
 LATEST="0.33.0"
+MAX_RETRIES=10
+RETRY_DELAY=10
+
+retry() {
+  local attempt
+  for ((attempt = 1; attempt <= MAX_RETRIES; attempt++)); do
+    if "$@"; then
+      return 0
+    fi
+    if ((attempt < MAX_RETRIES)); then
+      echo "Attempt $attempt/$MAX_RETRIES failed. Retrying in ${RETRY_DELAY}s..." >&2
+      sleep "$RETRY_DELAY"
+    fi
+  done
+  echo "All $MAX_RETRIES attempts failed." >&2
+  return 1
+}
 
 if [[ ! -d "$TAGS_DIR" ]]; then
   echo "Directory not found: $TAGS_DIR" >&2
@@ -38,7 +55,7 @@ for dir in $(printf '%s\n' "$TAGS_DIR"/*/ | sort -V); do
   if [[ "${tag}" == "${LATEST}" ]]; then
     echo -e "\nBuilding $IMAGE:$tag (latest) for platform(s) $platform\n"
 
-    docker buildx build \
+    retry docker buildx build \
       --no-cache \
       --platform "$platform" \
       -t "$IMAGE:$tag" \
@@ -49,7 +66,7 @@ for dir in $(printf '%s\n' "$TAGS_DIR"/*/ | sort -V); do
   else
     echo -e "\nBuilding $IMAGE:$tag for platform(s) $platform\n"
 
-    docker buildx build \
+    retry docker buildx build \
       --no-cache \
       --platform "$platform" \
       -t "$IMAGE:$tag" \
