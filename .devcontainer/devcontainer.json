@@ -1,0 +1,11 @@
+{
+	"name": "Alpine",
+	"image": "mcr.microsoft.com/devcontainers/base:alpine-3.22",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker"
+			]
+		}
+	}
+}
