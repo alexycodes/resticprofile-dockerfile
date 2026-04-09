@@ -1,0 +1,49 @@
+version: "2"
+
+linters:
+  default: standard
+  enable:
+    - bidichk
+    - dupword
+    - errname
+    - errorlint
+    - exhaustive
+    - exptostd
+    - forcetypeassert
+    - gocheckcompilerdirectives
+    - gochecknoinits
+    - gochecksumtype
+    - gocritic
+    - godoclint
+    - godot
+    - iface
+    - importas
+    - inamedparam
+    - intrange
+    - mirror
+    - misspell
+    - modernize
+    - nilerr
+    - nolintlint
+    - paralleltest
+    - perfsprint
+    - predeclared
+    - reassign
+    - recvcheck
+    - sloglint
+    - tagalign
+    - tagliatelle
+    - thelper
+    - tparallel
+    - unconvert
+    - unparam
+    - wastedassign
+    - whitespace
+
+formatters:
+  enable:
+    - gofmt
+
+output:
+  sort-order:
+    - file
