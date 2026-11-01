@@ -1,0 +1,39 @@
+name: Watch upstream
+
+on:
+  schedule:
+    # Off the top of the hour, when GitHub delays scheduled runs the most
+    - cron: '33 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+
+    steps:
+      - name: Build if upstream was pushed since the last build
+        shell: bash
+        run: |
+          upstream=$(curl -fsSL https://hub.docker.com/v2/repositories/creativeprojects/resticprofile/tags/latest | jq -er .tag_last_pushed)
+          builds=$(gh run list --workflow build.yml --created ">$upstream" --json databaseId --jq length)
+
+          echo "Upstream pushed:            $upstream"
+          echo "Builds since upstream push: $builds"
+
+          if [ "$builds" -eq 0 ]; then
+            echo "Triggering build"
+            gh workflow run build.yml
+          else
+            echo "Up to date"
+          fi
+
+      # Scheduled workflows in public repositories are disabled after 60 days without activity
+      - name: Keep schedule enabled
+        run: gh workflow enable watch.yml
