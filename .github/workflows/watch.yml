@@ -8,6 +8,7 @@ on:
 
 permissions:
   actions: write
+  contents: read
 
 jobs:
   watch:
@@ -18,13 +19,29 @@ jobs:
       GH_REPO: ${{ github.repository }}
 
     steps:
-      - name: Build if upstream was pushed since the last build
+      - name: Build if upstream latest is defined and pushed since the last build
         shell: bash
         run: |
-          upstream=$(curl -fsSL https://hub.docker.com/v2/repositories/creativeprojects/resticprofile/tags/latest | jq -er .tag_last_pushed)
-          builds=$(gh run list --workflow build.yml --created ">$upstream" --json databaseId --jq length)
+          hub=https://hub.docker.com/v2/repositories/creativeprojects/resticprofile/tags
 
-          echo "Upstream pushed:            $upstream"
+          repo_latest=$(gh api -H 'Accept: application/vnd.github.raw' "repos/$GH_REPO/contents/latest")
+
+          upstream=$(curl -fsSL "$hub/latest")
+          upstream_pushed=$(jq -er .tag_last_pushed <<<"$upstream")
+          upstream_digest=$(jq -er .digest <<<"$upstream")
+          repo_latest_digest=$(curl -fsSL "$hub/$repo_latest" | jq -er .digest)
+
+          echo "Repo latest: $repo_latest"
+          echo "Upstream latest digest: $upstream_digest"
+          echo "Upstream $repo_latest digest: $repo_latest_digest"
+          echo "Upstream pushed: $upstream_pushed"
+
+          if [ "$upstream_digest" != "$repo_latest_digest" ]; then
+            echo "Upstream latest is not $repo_latest, waiting for its definition to be added"
+            exit 0
+          fi
+
+          builds=$(gh run list --workflow build.yml --created ">$upstream_pushed" --json databaseId --jq length)
           echo "Builds since upstream push: $builds"
 
           if [ "$builds" -eq 0 ]; then
