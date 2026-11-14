@@ -36,4 +36,5 @@ jobs:
 
       # Scheduled workflows in public repositories are disabled after 60 days without activity
       - name: Keep schedule enabled
+        if: ${{ !cancelled() }}
         run: gh workflow enable watch.yml
